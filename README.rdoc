@@ -119,7 +119,29 @@ $ rails g controller home index
 -- Updated config\rountes.rb to set root to home#index
 
 -- Generate Post model with user_id, and contact_id as references
-$ rails g scaffold user:references contact:references title:string body:text
+$ rails g scaffold post user:references contact:references title:string body:text
 
 -- Generate Comment model with user_id, and post_id as references
-$ rails g scaffold post:references user:references body:text
+$ rails g scaffold comment post:references user:references body:text
+
+-- Heroku create
+$ git init
+$ git commit -m "initial"
+$ heroku login
+$ heroku create
+$ git remote -v
+  heroku  git@heroku.com:enigmatic-harbor-6938.git (fetch)
+  heroku  git@heroku.com:enigmatic-harbor-6938.git (push)
+
+-- renaming heroku app name # "https://devcenter.heroku.com/articles/renaming-apps"
+$ heroku apps:rename newname
+$ heroku apps:rename dmsbcm # rename from 'enigmatic-harbor-6938' to 'dmsbcm'
+
+$ git remote rm heroku
+
+$ git push heroku master # push to heroku
+
+$ heroku run rake db:migrate
+$ heroku run rake db:seed
+
+
