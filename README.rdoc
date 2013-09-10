@@ -1,0 +1,125 @@
+== README
+
+This README would normally document whatever steps are necessary to get the
+application up and running.
+
+Things you may want to cover:
+
+* Ruby version
+
+* System dependencies
+
+* Configuration
+
+* Database creation
+
+* Database initialization
+
+* How to run the test suite
+
+* Services (job queues, cache servers, search engines, etc.)
+
+* Deployment instructions
+
+* ...
+
+
+Please feel free to use a different markup language if you do not plan to run
+<tt>rake doc:app</tt>.
+
+
+---Added gems to Gemfile
+gem 'bootstrap-sass'		  	# bootstrap framework
+gem 'simple_form', '>= 3.0.0.rc'
+gem 'devise', '3.0.0rc' # Authentication solution
+gem 'rolify' # rolify gem to handle user roles
+gem 'cancan' # cancan to handle authroization
+gem 'gravatar-ultimate' # Gravatar gem 
+
+group :development, :test do
+	# Use sqlite3 as the database for Active Record
+	gem 'sqlite3'
+	gem 'capistrano'			# interation testing tools for rack based web application
+	gem 'factory_girl_rails' 	# fixtures replacement
+	gem 'faker'					# generate fake data 
+end
+
+group :production do
+	gem 'pg'
+	gem 'rails_12factor'
+end
+
+-- Added User Model
+$ rails g devise:install
+$ rails g devise User
+
+      invoke  active_record
+      create    db/migrate/20130909171725_devise_create_users.rb
+      create    app/models/user.rb
+      invoke    test_unit
+      create      test/models/user_test.rb
+      invoke      factory_girl
+      create        test/factories/users.rb
+      insert    app/models/user.rb
+       route  devise_for :users
+
+-- Add display_name columns to User model
+	Added 
+	t.string :display_name, :default => ""
+	to 20130909171725_devise_create_users.rb
+
+$ rake db:migrate	
+-- Generated devise views files
+$ rails g devise:views devise
+
+
+-- Modified routes
+match '*path(.:format)', :to => 'application#not_found', via: :all
+
+-- Added not_found on controllers\application_controller.rb
+
+  rescue_from ActiveRecord::RecordNotFound, :with => :not_found
+  rescue_from AbstractController::ActionNotFound, :with => :not_found
+  rescue_from ActionController::RoutingError, :with => :not_found
+  def not_found
+    show_error('Object is not found!')
+  end
+
+  def show_error(msg='Object does not exist!')
+    flash[:notice] = msg
+    redirect_to root_path
+  end
+
+-- Generate contact Model
+$ rails g scaffold contact first_name:string middle_name:string last_name:string suffix:string company:string department:string job_title:string business_street:string business_city:string business_state:string business_zipcode:string business_fax:string business_phone:string business_phone2:string company_phone:string home_phone:string mobile_phone:string other_phone:string email:string website:string
+
+
+-- Added import form inside of views\contacts\index.html.erb to point to import_contacts_path
+
+
+-- Added CSV import process to upload contact information to db
+
+-- Added roles using rolify gem
+-- Generated the Role class from rolify
+$ rails g rolify:role Role User
+# this will generated following files
+      create  app/models/role.rb
+      insert  app/models/user.rb
+      create  config/initializers/rolify.rb
+      create  db/migrate/20130910133121_rolify_create_roles.rb
+$ rake db:migrate
+
+-- Added cancan gem for authorization
+-- Generated ability.rb file
+$ rails g cancan:ability # this will generated models\ability.rb file
+
+-- Generated home controller
+$ rails g controller home index
+
+-- Updated config\rountes.rb to set root to home#index
+
+-- Generate Post model with user_id, and contact_id as references
+$ rails g scaffold user:references contact:references title:string body:text
+
+-- Generate Comment model with user_id, and post_id as references
+$ rails g scaffold post:references user:references body:text

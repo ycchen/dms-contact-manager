@@ -1,0 +1,42 @@
+<div class="root">
+	<div class="row">
+		<div class="span12">
+			<div class="grey-box">
+				<p id="notice"><%= notice %></p>
+
+				<p>
+				  <strong>Contact By:</strong>
+				  <%= @post.user.display_name %>
+				</p>
+
+				<p>
+				  <strong>Contact:</strong>
+				  <%= @post.contact.last_name %>, <%= @post.contact.first_name %>
+				</p>
+
+				<p>
+				  <strong>Title:</strong>
+				  <%= @post.title %>
+				</p>
+
+				<p>
+				  <strong>Body:</strong>
+				  <%= @post.body %>
+				</p>
+				<p>
+				  <strong>Created :</strong>
+				  <%= @post.created_at.strftime("%d %b %Y %H:%M") %><br/>
+				</p>
+				
+				<!-- 
+				<%= link_to 'Edit', edit_post_path(@post) %> |
+				<%= link_to 'Back', posts_path %>
+ -->
+				<h3>Comments (<%= @post.comments.size %>)</h3>
+
+				<%= render partial: 'posts/comment', collection: @post.comments  %>
+				<%= render partial: 'comments/form' %>
+			</div>
+	 	</div>
+	</div>
+</div>
