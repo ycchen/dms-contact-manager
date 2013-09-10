@@ -147,3 +147,7 @@ $ heroku run rake db:seed
 -- restart heroku application
 $ heroku restart
 
+-- LIKE is case-sensitive operator in Postgres
+Updated search method and replace or "like" to "LIKE" and convert all column name to lowercase, as well as search value to lowercase
+
+joins(:contact, :user).where(['LOWER(posts.title) LIKE ? or LOWER(posts.body) LIKE ? or LOWER(contacts.first_name) LIKE ? or LOWER(contacts.last_name) LIKE ? or LOWER(contacts.company) LIKE ? or LOWER(users.display_name) LIKE ?', "%#{search.downcase}%", "%#{search.downcase}%", "%#{search.downcase}%" , "%#{search.downcase}%", "%#{search.downcase}%", "%#{search.downcase}%"]).order('created_at DESC')
