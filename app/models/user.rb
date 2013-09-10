@@ -6,6 +6,8 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
+  has_many :posts       
+
 	def avatar
 		Gravatar.new(self.email).image_url
 	end
@@ -13,5 +15,5 @@ class User < ActiveRecord::Base
 	def admin?
 		has_role?(:admin)
 	end
-	
+
 end

@@ -1,10 +1,17 @@
 class PostsController < ApplicationController
   before_action :set_post, only: [:show, :edit, :update, :destroy]
-
+  before_action :is_owner, only:[:edit, :update, :destroy]
   # GET /posts
   # GET /posts.json
   def index
     @posts = Post.all
+    if params[:user_id]
+      @posts = Post.where(user_id: current_user).order('created_at DESC')
+    elsif params[:search]
+      @posts = Post.search(params[:search])
+    else
+      @posts= Post.order('created_at desc')
+    end
   end
 
   # GET /posts/1
@@ -73,5 +80,12 @@ class PostsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def post_params
       params.require(:post).permit(:user_id, :contact_id, :title, :body)
+    end
+
+    def is_owner
+      if current_user.id != @post.user_id
+         flash[:notice] = "You are ONLY authroize to modify your own record!"
+         redirect_to posts_url
+      end
     end
 end
