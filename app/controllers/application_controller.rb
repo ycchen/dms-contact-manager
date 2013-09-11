@@ -6,6 +6,12 @@ class ApplicationController < ActionController::Base
   rescue_from ActiveRecord::RecordNotFound, :with => :not_found
   rescue_from AbstractController::ActionNotFound, :with => :not_found
   rescue_from ActionController::RoutingError, :with => :not_found
+  
+  before_filter :global_user
+  def global_user
+     Contact.user = current_user
+  end
+
   def not_found
     show_error('Object is not found!')
   end
@@ -21,4 +27,6 @@ class ApplicationController < ActionController::Base
       redirect_to root_path
     end
   end
+
+
 end

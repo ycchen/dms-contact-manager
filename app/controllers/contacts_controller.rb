@@ -1,10 +1,18 @@
 class ContactsController < ApplicationController
   before_action :set_contact, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!
+  before_action :is_owner, only:[:edit, :update, :destroy]
   # GET /contacts
   # GET /contacts.json
   def index
-    @contacts = Contact.order(:last_name)
+    if params[:user_id]
+      @contacts = Contact.where(user_id: params[:user_id]).order('last_name')
+    elsif params[:search]
+      @contacts = Contact.search(params[:search])
+    else
+      @contacts = Contact.order('last_name')
+    end
+    
     respond_to  do |format|
       format.html
       format.csv {send_data @contacts.to_csv}
@@ -80,5 +88,12 @@ class ContactsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def contact_params
       params.require(:contact).permit(:first_name, :middle_name, :last_name, :suffix, :company, :department, :job_title, :business_street, :business_city, :business_state, :business_zipcode, :business_fax, :business_phone, :business_phone2, :company_phone, :home_phone, :mobile_phone, :other_phone, :email, :website)
+    end
+
+    def is_owner
+      if current_user.id != @contact.user_id
+         flash[:notice] = "You are ONLY modify your own record!"
+         redirect_to contacts_url
+      end
     end
 end

@@ -151,3 +151,29 @@ $ heroku restart
 Updated search method and replace or "like" to "LIKE" and convert all column name to lowercase, as well as search value to lowercase
 
 joins(:contact, :user).where(['LOWER(posts.title) LIKE ? or LOWER(posts.body) LIKE ? or LOWER(contacts.first_name) LIKE ? or LOWER(contacts.last_name) LIKE ? or LOWER(contacts.company) LIKE ? or LOWER(users.display_name) LIKE ?', "%#{search.downcase}%", "%#{search.downcase}%", "%#{search.downcase}%" , "%#{search.downcase}%", "%#{search.downcase}%", "%#{search.downcase}%"]).order('created_at DESC')
+
+-- Added roo gem and require 'iconv' to support upload csv and spreadsheet
+-- Updated models\contact.rb
+def self.import(file)
+  spreadsheet = open_spreadsheet(file)
+  header = spreadsheet.row(1)
+  (2..spreadsheet.last_row).each do |i|
+    row = Hash[[header, spreadsheet.row(i)].transpose]
+  end
+end
+
+def self.open_spreadsheet(file)
+  case File.extname(file.original_filename)
+    when ".csv" then Roo::CSV.new(file.path)
+    when ".xls" then Roo::Excel.new(file.path,nil,:ignore)
+    when ".xlxs" then Roo::Excelx.new(file.path,nil,:ignore)
+    else raise "Unknown file type #{file.origianl_filename}"
+  end
+end
+
+-- Generated migration script to add user_id to contact model
+$ rails g migration add_user_id_to_contact user:references
+
+-- Modified controllers\application_controller.rb to add accessable to current_user, which this is not the right way to do that, but will refactory later
+
+-- Added search method on contact model, as well as added user_id to contact model to display different user's contact list.

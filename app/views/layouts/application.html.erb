@@ -22,11 +22,18 @@
 				<div class="span12">
 					<div class="main-image"><%= image_tag '/assets/background-11.jpg' %></div>	
 					<%= yield %>
+
+					<br/>
+
+					<%#= debug(params) if Rails.env.development? %>
+					<%#= debug(RUBY_PLATFORM) %>
+					<%#= debug("Page Rendered in #{ sprintf('%.3f', (Time.now.usec - @start_time).abs / 1000000.0) } seconds)") %>
 				</div>	
 			</div>	
 		</div>
 	</div>
 	<%= yield :scripts %>
+
 
 </body>
 </html>
