@@ -9,7 +9,7 @@ class ApplicationController < ActionController::Base
   
   before_filter :global_user
   def global_user
-     Contact.user = current_user
+     Contact.login_user = current_user
   end
 
   def not_found

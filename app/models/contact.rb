@@ -1,9 +1,17 @@
 class Contact < ActiveRecord::Base
-	cattr_accessor :user
+	cattr_accessor :login_user
 	belongs_to :user
 
 	scope :john, lambda{where(user_id:4).order('last_name')}
 	scope :wayne, lambda{where(user_id:5).order('last_name')}
+
+	def avatar
+		if self.email
+			Gravatar.new(self.email).image_url
+		else
+			Gravatar.new("generic@example.com").image_url
+		end
+	end
 
 	def self.search(search)
 		if search
@@ -36,7 +44,7 @@ class Contact < ActiveRecord::Base
 			row = Hash[[header, spreadsheet.row(i)].transpose]
 			contact = find_by_id(row["id"]) || new
 			contact.attributes = row.to_hash.select{ |k,v| allowed_attributes.include? k}
-			contact.user_id = self.user.id
+			contact.user_id = self.login_user.id
 			contact.save!
 		end	
 	end

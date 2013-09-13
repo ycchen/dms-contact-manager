@@ -19,4 +19,8 @@
 $(function(){
 	$('.alert').delay(5000).slideUp('slow');
 
+	$('.import').click(function(){
+		alert('hello');
+		// $('.import-area').toggle();
+	});
 });

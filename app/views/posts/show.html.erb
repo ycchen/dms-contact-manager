@@ -1,42 +1,36 @@
-<div class="root">
 	<div class="row">
-		<div class="span12">
-			<div class="grey-box">
-				<p id="notice"><%= notice %></p>
+		<div class="span6">
+			<div class="item-container-body">
+				<div class="item-header">
+					<img src="<%= @post.user.avatar %>" class="item-user-image"/>
+					<span class="item-header-user">
+						<%= @post.user.display_name %>
+					</span>
+					<span class="refeed-buttons"> </span>
+					<span class="points-container">
+				</div>
 
-				<p>
-				  <strong>Contact By:</strong>
-				  <%= @post.user.display_name %>
-				</p>
-
-				<p>
-				  <strong>Contact:</strong>
-				  <%= @post.contact.last_name %>, <%= @post.contact.first_name %>
-				</p>
-
-				<p>
-				  <strong>Title:</strong>
-				  <%= @post.title %>
-				</p>
-
-				<p>
-				  <strong>Body:</strong>
-				  <%= @post.body %>
-				</p>
-				<p>
-				  <strong>Created :</strong>
-				  <%= @post.created_at.strftime("%d %b %Y %H:%M") %><br/>
-				</p>
-				
-				<!-- 
-				<%= link_to 'Edit', edit_post_path(@post) %> |
-				<%= link_to 'Back', posts_path %>
- -->
-				<h3>Comments (<%= @post.comments.size %>)</h3>
-
-				<%= render partial: 'posts/comment', collection: @post.comments  %>
-				<%= render partial: 'comments/form' %>
+				<br>
+				<span class="text-item-body">
+					<strong>Contact:</strong> <%= @post.contact.last_name %>, <%= @post.contact.first_name %><br/>
+					<strong>Title:</strong> <%= @post.title %><br/>
+					<strong>Phone:</strong> <%= @post.contact.business_phone %><br/>
+					<strong>Body:</strong> <%= @post.body %>
+				</span>
+				<div class=" item-footer">
+					<span class="raphael-icon post-logo">Posted</span>
+					<span class="item-time">
+						<%= distance_of_time_in_words_to_now(@post.created_at)%>
+					<span class="refeed-container"> </span>
+					</span>
+				</div>
 			</div>
-	 	</div>
-	</div>
-</div>
+		</div>
+	</div>	
+
+	<h4>Comments (<%= @post.comments.size %>)</h4>
+
+	<%= render partial: 'posts/comment', collection: @post.comments.order('created_at DESC')  %>
+	
+	<%= render partial: 'comments/form' %>
+

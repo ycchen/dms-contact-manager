@@ -4,6 +4,9 @@
           <div class="grey-box">
         <h1>Listing contacts</h1>
         <%# if current_user.admin? %>
+          <!-- <div>
+            <button type="button" class="import">Import Contacts</button>
+          </div> -->
 
           <div class="import-area">
             <h4>Import Contacts</h4>
@@ -16,8 +19,13 @@
         <br/>
         <div>
           <span style="float:left">
-            <span class="badge"><%= Contact.john.size %></span>&nbsp;<%= link_to "John", contacts_path(:user_id => 4) %> |
-            <span class="badge"><%= Contact.wayne.size %></span>&nbsp;<%= link_to "Wayne", contacts_path(:user_id => 5) %> 
+            <%= link_to contacts_path(:user_id => 4), class: 'btn btn-primary btn-sm' do %>
+              John&nbsp;<span class="badge"><%= Contact.john.size %></span>
+            <% end %>
+            <%= link_to contacts_path(:user_id => 5), class: 'btn btn-primary btn-sm' do %>
+              Wayne&nbsp;<span class="badge"><%= Contact.wayne.size %></span>
+            <% end %>
+
           </span>
           <span style="float:right">
             Download:
@@ -25,37 +33,28 @@
             <%= link_to('<i class="icon-file"></i>Excel'.html_safe, contacts_path(format:"xls"))%>
           </span>
         </div>
-        <table class="table table-striped">
-          <thead>
-            <tr>
-              <th>Last name</th>
-              <th>First name</th>
-              <th>Company</th>
-              <th>Business phone</th>
-              <th>Email</th>
-              <th></th>
-              <th></th>
-              <th></th>
-            </tr>
-          </thead>
+        <div style="clear: both;"></div>
+        <br/>
+        <%#= render :partial => 'table'  %>
+        
+        <%#= @contacts.each do |contact| %>
+          <%#= render :partial => 'data', locals: {contact: contact} %>
+        <%# end %>
 
-          <tbody>
-            <% @contacts.each do |contact| %>
-              <tr>
-                <td><%= contact.last_name %></td>
-                <td><%= contact.first_name %></td>
-                <td><%= contact.company %></td>
-                <td><%= contact.business_phone %></td>
-                <td><%= contact.email %></td>
-                <td><%= link_to 'Show', contact %></td>
-                <td><%= link_to 'Edit', edit_contact_path(contact) %></td>
-                <td><%= link_to 'Destroy', contact, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-              </tr>
-            <% end %>
-          </tbody>
-        </table>
+        <%#= @contacts.each do |contact| %>
+          <%#= render :partial => 'data', locals: {contact: contact} %>
+        <%# end %>
 
-        <br>
+          <% @contacts.each do |contact| %>
+            <div style="float:left;width=300px;"><%= render :partial => 'data', locals: {contact: contact} %></div>
+          <% end  %>
+
+        
+        <%# @contacts.each_with_index do |tag, index| %>
+          <%#= index %>
+          <%#= "<br />" if (index % 5).zero? %>
+        <%# end %>
+        <br style="clear: both;">
 
         <%= link_to 'New Contact', new_contact_path %>
         

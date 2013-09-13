@@ -177,3 +177,27 @@ $ rails g migration add_user_id_to_contact user:references
 -- Modified controllers\application_controller.rb to add accessable to current_user, which this is not the right way to do that, but will refactory later
 
 -- Added search method on contact model, as well as added user_id to contact model to display different user's contact list.
+
+
+-- Heroku database reset steps
+1. heroku pg:reset DATABASE
+
+2. heroku run rake db:migrate
+
+3. heroku run rake db:seed
+
+-- Check if params exist
+params[:user_id].nil? => if does not exist it will return "true"
+params[:user_id].present? => if does not exist it will return "false"
+
+
+-- Display 3 columns per row
+<table>
+  <tr>
+  <% @contacts.each_with_index do |t,i| %>
+    <% i = i+1 %>
+    <td><%= render :partial => 'data', locals: {contact: t} %></td>
+    <% if (i % 3).zero? %></tr><tr><% end %>
+  <% end  %>
+</table>
+ 

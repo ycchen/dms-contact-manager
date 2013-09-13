@@ -21,8 +21,13 @@ class ContactsController < ApplicationController
   end
 
   def import
-    Contact.import(params[:file])
-    redirect_to contacts_url, notice:"Contacts imported."
+    if !params[:file].blank?
+      Contact.import(params[:file])
+      redirect_to contacts_url, notice:"Contacts imported."
+    else
+      redirect_to contacts_url, notice:"Please select a file to upload!"
+    end
+    
   end
 
   # GET /contacts/1

@@ -1,104 +1,44 @@
-<p id="notice"><%= notice %></p>
-
-<p>
-  <strong>First name:</strong>
-  <%= @contact.first_name %>
-</p>
-
-<p>
-  <strong>Middle name:</strong>
-  <%= @contact.middle_name %>
-</p>
-
-<p>
-  <strong>Last name:</strong>
-  <%= @contact.last_name %>
-</p>
-
-<p>
-  <strong>Suffix:</strong>
-  <%= @contact.suffix %>
-</p>
-
-<p>
-  <strong>Company:</strong>
-  <%= @contact.company %>
-</p>
-
-<p>
-  <strong>Department:</strong>
-  <%= @contact.department %>
-</p>
-
-<p>
-  <strong>Job title:</strong>
-  <%= @contact.job_title %>
-</p>
-
-<p>
-  <strong>Business street:</strong>
-  <%= @contact.business_street %>
-</p>
-
-<p>
-  <strong>Business city:</strong>
-  <%= @contact.business_city %>
-</p>
-
-<p>
-  <strong>Business state:</strong>
-  <%= @contact.business_state %>
-</p>
-
-<p>
-  <strong>Business zipcode:</strong>
-  <%= @contact.business_zipcode %>
-</p>
-
-<p>
-  <strong>Business fax:</strong>
-  <%= @contact.business_fax %>
-</p>
-
-<p>
-  <strong>Business phone:</strong>
-  <%= @contact.business_phone %>
-</p>
-
-<p>
-  <strong>Business phone2:</strong>
-  <%= @contact.business_phone2 %>
-</p>
-
-<p>
-  <strong>Company phone:</strong>
-  <%= @contact.company_phone %>
-</p>
-
-<p>
-  <strong>Home phone:</strong>
-  <%= @contact.home_phone %>
-</p>
-
-<p>
-  <strong>Mobile phone:</strong>
-  <%= @contact.mobile_phone %>
-</p>
-
-<p>
-  <strong>Other phone:</strong>
-  <%= @contact.other_phone %>
-</p>
-
-<p>
-  <strong>Email:</strong>
-  <%= @contact.email %>
-</p>
-
-<p>
-  <strong>Website:</strong>
-  <%= @contact.website %>
-</p>
-
-<%= link_to 'Edit', edit_contact_path(@contact) %> |
-<%= link_to 'Back', contacts_path %>
+    <div class="row">
+      <div class="span12">
+          <div class="grey-box">
+            <div class="row">
+              <div class="span8">
+                <div class="item-container-body">
+                  <div class="item-header">
+                    <img src="<%= @contact.avatar %>" class="item-user-image"/>
+                    <span class="item-header-user"><%= link_to "#{@contact.last_name},#{@contact.first_name}", @contact_path %></span>
+                    <span class="points-container"><%= @contact.user.display_name %></span>
+                  </div>
+                  <span class="text-item-body">
+                    <p>First name:<%= @contact.first_name %></p>
+                    <p>Middle name:<%= @contact.middle_name %></p>
+                    <p>Last name:<%= @contact.last_name %></p>
+                    <p>Suffix:<%= @contact.suffix %></p>
+                    <p>  Company:  <%= @contact.company %></p>
+                    <p>  Department:  <%= @contact.department %></p>
+                    <p>  Job title:  <%= @contact.job_title %></p>
+                    <p>  Business street:  <%= @contact.business_street %></p>
+                    <p>  Business city:  <%= @contact.business_city %></p>
+                    <p>  Business state:  <%= @contact.business_state %></p>
+                    <p>  Business zipcode:  <%= @contact.business_zipcode %></p>
+                    <p>  Business fax:  <%= @contact.business_fax %></p>
+                    <p>  Business phone:  <%= @contact.business_phone %></p>
+                    <p>Business phone2:  <%= @contact.business_phone2 %></p>
+                    <p>Company phone:  <%= @contact.company_phone %></p>
+                    <p>Home phone  <%= @contact.home_phone %></p>
+                    <p>Mobile phone:  <%= @contact.mobile_phone %></p>
+                    <p>Other phone:  <%= @contact.other_phone %></p>
+                    <p>Email:  <a href="mailto:<%= @contact.email %>"><%= @contact.email %></a></p>
+                  </span>
+                 <div class=" item-footer">
+                    <span class="raphael-icon post-logo">Posted</span>
+                    <span class="item-time">
+                      <%= distance_of_time_in_words_to_now(@contact.created_at)%>
+                    </span>
+                    <span class="refeed-container"></span>
+                  </div>
+                </div>
+              </div>
+            </div>
+<%= link_to 'Edit', edit_contact_path(@contact), class: 'btn btn-primary' %> |
+<%= link_to 'Back', contacts_path, class: 'btn btn-primary'%>
