@@ -32,20 +32,19 @@ end
 gem 'bootstrap-sass'		  	# bootstrap framework
 gem 'carrierwave'				# upload file gem
 gem 'simple_form', '>= 3.0.0.rc'
-gem 'devise', '3.0.0rc' # Authentication solution
-gem 'rolify' # rolify gem to handle user roles
-gem 'cancan' # cancan to handle authroization
-gem 'gravatar-ultimate' # Gravatar gem 
-gem 'roo' 					#Roo provides an interface to Open Office, Excel, and Google Spreadsheets
+gem 'devise', '3.0.0rc' 		# Authentication solution
+gem 'rolify' 					# rolify gem to handle user roles
+gem 'cancan' 					# cancan to handle authroization
+gem 'gravatar-ultimate' 		# Gravatar gem 
+gem 'roo' 						#Roo provides an interface to Open Office, Excel, and Google Spreadsheets
 gem 'rubyzip', '< 1.0.0'
-gem 'faker'					# generate fake data 
+gem 'faker'						# generate fake data 
+gem 'kaminari'					#pagination
 
 group :development, :test do
-	# Use sqlite3 as the database for Active Record
-	gem 'sqlite3'
+	gem 'sqlite3'				# Use sqlite3 as the database for Active Record
 	gem 'capistrano'			# interation testing tools for rack based web application
 	gem 'factory_girl_rails' 	# fixtures replacement
-	
 end
 
 group :production do

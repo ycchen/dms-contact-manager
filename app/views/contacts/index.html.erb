@@ -35,6 +35,26 @@
         </div>
         <div style="clear: both;"></div>
         <br/>
+<!--         
+        <table class="table table-striped datalist" id="joblist_table">
+          <thead>
+            <tr>
+              <th>Last name</th>
+              <th>First name</th>
+              <th>Company</th>
+              <th>Phone</th>
+              <th>Email</th>
+              <th></th>
+              <th></th>
+              <th></th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <%#= render :partial => 'tabledata'  %>
+          </tbody>
+        </table>
+ -->
         <%#= render :partial => 'table'  %>
         
         <%#= @contacts.each do |contact| %>
@@ -44,19 +64,17 @@
         <%#= @contacts.each do |contact| %>
           <%#= render :partial => 'data', locals: {contact: contact} %>
         <%# end %>
-
-          <% @contacts.each do |contact| %>
-            <div style="float:left;width=300px;"><%= render :partial => 'data', locals: {contact: contact} %></div>
-          <% end  %>
-
         
         <%# @contacts.each_with_index do |tag, index| %>
           <%#= index %>
           <%#= "<br />" if (index % 5).zero? %>
         <%# end %>
-        <br style="clear: both;">
 
-        <%= link_to 'New Contact', new_contact_path %>
+        <div id="contact_list">
+        <%= render :partial => 'datalist' %>
+        </div>
+        <%= paginate @contacts %>
+        <%#= link_to 'New Contact', new_contact_path %>
         
       </div>      
     </div>

@@ -6,17 +6,19 @@ class ContactsController < ApplicationController
   # GET /contacts.json
   def index
     if params[:user_id]
-      @contacts = Contact.where(user_id: params[:user_id]).order('last_name')
+      @contacts = Contact.where(user_id: params[:user_id]).order('last_name').page(params[:page]).per(15)
     elsif params[:search]
-      @contacts = Contact.search(params[:search])
+      # @contacts = Contact.search(params[:search])
+      @contacts = Kaminari.paginate_array(Contact.search(params[:search]), load:true).page(params[:page]).per(15)
     else
-      @contacts = Contact.order('last_name')
+      @contacts = Contact.order('last_name').page(params[:page]).per(15)
     end
     
     respond_to  do |format|
       format.html
       format.csv {send_data @contacts.to_csv}
       format.xls {send_data @contacts.to_csv(col_sep: "\t")}
+      format.js 
     end
   end
 

@@ -200,4 +200,32 @@ params[:user_id].present? => if does not exist it will return "false"
     <% if (i % 3).zero? %></tr><tr><% end %>
   <% end  %>
 </table>
- 
+
+-- Display 3 div per row (based on the width of main container px/3)
+  <% @contacts.each do |contact| %>
+    <div style="float:left;width=300px;"><%= render :partial => 'data', locals: {contact: contact} %></div>
+  <% end  %>
+
+-- Added pagination on contact list page
+-- Added gem  'kaminari' for pagination
+-- Generated kaminari configuration file
+$ rails g kaminari:config
+
+-- Added infinite page (endless page)
+-- Added views\contacts\index.js.erb
+$('#contact_list').append('<%= j render :partial => "datalist" %>');
+$('.pagination').replaceWith('<%= j paginate(@contacts) %>');
+if ($('.pagination .next').length ==0)
+  $('.pagination').hide()
+
+-- Modified controllers\contacts_controller.rb to add format.js under index, that will it will trigger index.js.erb
+
+-- Modified assets\javascripts\contacts.js.coffee
+jQuery ->
+  if $('.pagination').length
+    $(window).scroll ->
+      url = $('.pagination .next > a').attr('href')
+      if url && $(window).scrollTop() > $(document).height() - $(window).height() - 150
+        $('.pagination').text("Fetching more records ...")
+        $.getScript(url)
+      $(window).scroll
