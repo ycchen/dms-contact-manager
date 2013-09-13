@@ -229,3 +229,5 @@ jQuery ->
         $('.pagination').text("Fetching more records ...")
         $.getScript(url)
       $(window).scroll
+
+-- Added pagination for post model
