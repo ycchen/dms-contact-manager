@@ -33,7 +33,8 @@
                  <div class=" item-footer">
                     <span class="raphael-icon post-logo">Posted</span>
                     <span class="item-time">
-                      <%= distance_of_time_in_words_to_now(@contact.created_at)%>
+                      <%= distance_of_time_in_words_to_now(@contact.created_at)%><br/>
+                      [<%= @contact.created_at %>]
                     </span>
                     <span class="refeed-container"></span>
                   </div>

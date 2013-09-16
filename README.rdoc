@@ -231,3 +231,20 @@ jQuery ->
       $(window).scroll
 
 -- Added pagination for post model
+
+-- Added contact type model to assoicate with post model
+$ rails g scaffold contact_type name:string
+
+-- Generated migration script to add contact_type_id and contact_date, action item, and complete
+$ rails g migration add_contact_type_date_action_complete_to_post contact_type:references contact_date:date action_item:text complete:boolean
+
+-- Generate migration script to add contact_type to posts table
+$ rails g migration add_contact_type_to_post contact_type:references
+
+-- Update migration script to set complete:boolean to default: false
+add_column :posts, :complete, :boolean, default: false
+
+-- http://stackoverflow.com/questions/6118779/how-to-change-default-timezone-for-activerecord-in-rails3
+-- Set default time zone to Eastern Time (US & Canada) in config\application.rb
+config.time_zone = 'Eastern Time (US & Canada)'
+config.active_record.default_timezone = :local

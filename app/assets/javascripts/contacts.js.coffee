@@ -4,7 +4,7 @@
 # $ ->
 # 	$(".import").click ->
 # 		$(".import-area").toggle()
-jQuery ->
+$ ->
 	if $('.pagination').length
 		$(window).scroll ->
 			url = $('.pagination .next > a').attr('href')

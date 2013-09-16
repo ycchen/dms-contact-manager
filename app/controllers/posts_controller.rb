@@ -21,6 +21,10 @@ class PostsController < ApplicationController
     @comment.post_id = @post.id
   end
 
+  def myposts
+    @posts = Post.where(contact_id: params[:contact_id]).order('created_at Desc')
+  end
+
   # GET /posts/new
   def new
     @post = Post.new
@@ -79,7 +83,7 @@ class PostsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def post_params
-      params.require(:post).permit(:user_id, :contact_id, :title, :body)
+      params.require(:post).permit(:user_id, :contact_id, :title, :body, :contact_date,:action_item, :complete, :contact_type_id)
     end
 
     def is_owner

@@ -3,11 +3,6 @@
       <div class="span12">
           <div class="grey-box">
         <h1>Listing contacts</h1>
-        <%# if current_user.admin? %>
-          <!-- <div>
-            <button type="button" class="import">Import Contacts</button>
-          </div> -->
-
           <div class="import-area">
             <h4>Import Contacts</h4>
             <%= form_tag import_contacts_path, multipart: true do %>
@@ -15,7 +10,6 @@
               <%= submit_tag "Import" , :class => 'btn btn-primary' %>
             <% end %>
           </div>
-        <% #end %>
         <br/>
         <div>
           <span style="float:left">
@@ -27,36 +21,20 @@
             <% end %>
 
           </span>
-          <span style="float:right">
+          <span style="float:right; padding-left: 10px;">
             Download:
             <%= link_to('<i class="icon-file"></i>CSV'.html_safe, contacts_path(format:"csv")) %> |
             <%= link_to('<i class="icon-file"></i>Excel'.html_safe, contacts_path(format:"xls"))%>
           </span>
+         
+          <span style="float:right; padding-left: 10px;">
+            &nbsp; View:
+            <%= link_to_unless( params[:view] == "grid" || params[:view].nil? ,'<i class="icon-th"></i>Grid'.html_safe, contacts_path(view: "grid"), params.merge(view: "grid")) %>
+            <%= link_to_unless(params[:view] == "list",'<i class="icon-list"></i>List'.html_safe, contacts_path(view: "list"),params.merge(view: "list"))%>
+          </span>
         </div>
         <div style="clear: both;"></div>
         <br/>
-<!--         
-        <table class="table table-striped datalist" id="joblist_table">
-          <thead>
-            <tr>
-              <th>Last name</th>
-              <th>First name</th>
-              <th>Company</th>
-              <th>Phone</th>
-              <th>Email</th>
-              <th></th>
-              <th></th>
-              <th></th>
-            </tr>
-          </thead>
-
-          <tbody>
-            <%#= render :partial => 'tabledata'  %>
-          </tbody>
-        </table>
- -->
-        <%#= render :partial => 'table'  %>
-        
         <%#= @contacts.each do |contact| %>
           <%#= render :partial => 'data', locals: {contact: contact} %>
         <%# end %>
@@ -69,10 +47,33 @@
           <%#= index %>
           <%#= "<br />" if (index % 5).zero? %>
         <%# end %>
+        
+        <% if params[:view].nil? %>
+          <div id="contact_list">
+            <%= render :partial => 'datalist' %>
+          </div>
+        <% elsif params[:view]== "list" %>
+          <table class="table table-striped datalist" id="contact_list">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Company</th>
+                <th>Phone/Email</th>
+                <th>Post</th>
+                <th></th>
+                <th></th>
+              </tr>
+            </thead>
 
-        <div id="contact_list">
-        <%= render :partial => 'datalist' %>
-        </div>
+            <tbody>
+              <%= render :partial => 'tabledata'  %>
+            </tbody>
+          </table>
+        <% elsif params[:view] == "grid" %>
+          <div id="contact_list">
+            <%= render :partial => 'datalist' %>
+          </div>
+        <% end %>
         <%= paginate @contacts %>
         <%#= link_to 'New Contact', new_contact_path %>
         

@@ -1,5 +1,8 @@
 DmsContactsManager::Application.routes.draw do
 
+  resources :contact_types
+
+  get 'myposts/:contact_id' => 'posts#myposts',:as =>'contactposts'
   resources :posts do
     resources :comments
   end

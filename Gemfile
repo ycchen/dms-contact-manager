@@ -40,7 +40,7 @@ gem 'roo' 						#Roo provides an interface to Open Office, Excel, and Google Spr
 gem 'rubyzip', '< 1.0.0'
 gem 'faker'						# generate fake data 
 gem 'kaminari'					#pagination
-
+gem 'bootstrap-datepicker-rails'
 group :development, :test do
 	gem 'sqlite3'				# Use sqlite3 as the database for Active Record
 	gem 'capistrano'			# interation testing tools for rack based web application

@@ -1,6 +1,7 @@
 class Contact < ActiveRecord::Base
 	cattr_accessor :login_user
 	belongs_to :user
+	has_many :posts
 
 	scope :john, lambda{where(user_id:4).order('last_name')}
 	scope :wayne, lambda{where(user_id:5).order('last_name')}

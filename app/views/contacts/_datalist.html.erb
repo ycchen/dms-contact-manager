@@ -15,13 +15,18 @@
 						Email: <a href="mailto:<%= contact.email %>"><%= contact.email %></a><br/>
 						Company: <%= contact.company %>
 					</span>
-	<!-- 				<div class=" item-footer">
+					<div class="text-item-footer">
+						Posts:(<%= contact.posts.size %>)<% if contact.posts.size > 0 %> <%= link_to "view post", contactposts_path(contact.id) %><% end %>
+					</div>
+					<!-- 
+					<div class="item-footer">
 						<span class="raphael-icon post-logo">Posted</span>
 						<span class="item-time">
-							<%= distance_of_time_in_words_to_now(contact.created_at)%>
+							<%#= distance_of_time_in_words_to_now(contact.created_at)%>
 						</span>
 						<span class="refeed-container"></span>
-					</div> -->
+					</div>
+					 -->
 				</div>
 			</div>
 		</div>

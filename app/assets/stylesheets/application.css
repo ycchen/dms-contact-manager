@@ -9,6 +9,7 @@
  * compiled file, but it's generally better to create a new file per style scope.
  *
  *= require bootstrap
+ *= require bootstrap-datepicker
  *= require_self
  *= require_tree .
  */
@@ -198,6 +199,11 @@ body {
     white-space: normal;
     word-wrap: break-word;
 }
+.text-item-footer{
+    color: #234A4D;
+    font-size: 12px;
+}
+
 .item-footer {
     padding-top: 50px;
 }
@@ -205,3 +211,10 @@ body {
     color: #567A4D;
     float: right;
 }
+textarea#message_area {
+  width: 400px;
+  height: 150px;
+}
+input.radio_buttons, input.check_boxes {
+    margin-right: 5px;
+  }

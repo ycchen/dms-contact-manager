@@ -1,7 +1,9 @@
 class Post < ActiveRecord::Base
   belongs_to :user
   belongs_to :contact
+  belongs_to :contact_type
   has_many :comments
+
 
   def self.search(search)
   	if search
