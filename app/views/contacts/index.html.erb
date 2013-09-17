@@ -13,24 +13,24 @@
         <br/>
         <div>
           <span style="float:left">
-            <%= link_to contacts_path(:user_id => 4), class: 'btn btn-primary btn-sm' do %>
+            <%= link_to contacts_path(:user_id => 4,search: params[:search]), class: 'btn btn-primary btn-sm' do %>
               John&nbsp;<span class="badge"><%= Contact.john.size %></span>
             <% end %>
-            <%= link_to contacts_path(:user_id => 5), class: 'btn btn-primary btn-sm' do %>
+            <%= link_to contacts_path(:user_id => 5,search: params[:search]), class: 'btn btn-primary btn-sm' do %>
               Wayne&nbsp;<span class="badge"><%= Contact.wayne.size %></span>
             <% end %>
 
           </span>
           <span style="float:right; padding-left: 10px;">
             Download:
-            <%= link_to('<i class="icon-file"></i>CSV'.html_safe, contacts_path(format:"csv")) %> |
+            <%= link_to('<i class="icon-file"></i>CSV'.html_safe, contacts_path(format:"csv"), params.merge(view: params[:view])) %> |
             <%= link_to('<i class="icon-file"></i>Excel'.html_safe, contacts_path(format:"xls"))%>
           </span>
          
           <span style="float:right; padding-left: 10px;">
             &nbsp; View:
-            <%= link_to_unless( params[:view] == "grid" || params[:view].nil? ,'<i class="icon-th"></i>Grid'.html_safe, contacts_path(view: "grid"), params.merge(view: "grid")) %>
-            <%= link_to_unless(params[:view] == "list",'<i class="icon-list"></i>List'.html_safe, contacts_path(view: "list"),params.merge(view: "list"))%>
+            <%= link_to_unless( params[:view] == "grid" || params[:view].nil? ,'<i class="icon-th"></i>Grid'.html_safe, contacts_path(view: "grid",search: params[:search]), params.merge(search: params[:search])) %>
+            <%= link_to_unless(params[:view] == "list",'<i class="icon-list"></i>List'.html_safe, contacts_path(view: "list", search: params[:search]))%>
           </span>
         </div>
         <div style="clear: both;"></div>
