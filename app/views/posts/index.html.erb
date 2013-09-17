@@ -14,8 +14,8 @@
                 <th>Company</th>
                 <th>Title</th>
                 <th>Body</th>
-                <th></th>
-                <th></th>
+                <th>Action Items</th>
+                <th>Complete</th>
                 <th></th>
               </tr>
             </thead>
@@ -28,6 +28,8 @@
                   <td><%= post.contact.company %></td>
                   <td><%= post.title %></td>
                   <td><%= post.body %></td>
+                  <td><%= post.action_item %></td>
+                  <td><%= post.complete ? 'Yes' : 'No' %></td>
                   <td><%= link_to 'Show', post, class: "btn btn-primary"%></td>
                   <td><%= link_to 'Edit', edit_post_path(post), class: "btn btn-primary" %></td>
                   <td><%= link_to 'Destroy', post, class: "btn btn-primary", method: :delete, data: { confirm: 'Are you sure?' } %></td>
