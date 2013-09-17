@@ -16,8 +16,8 @@ class ContactsController < ApplicationController
     
     respond_to  do |format|
       format.html
-      format.csv {send_data @contacts.to_csv}
-      format.xls {send_data @contacts.to_csv(col_sep: "\t")}
+      format.csv {send_data Contact.order('last_name').to_csv }
+      format.xls {send_data Contact.order('last_name').to_csv(col_sep: "\t") }
       format.js 
     end
   end
