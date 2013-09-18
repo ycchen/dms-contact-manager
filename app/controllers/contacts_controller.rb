@@ -99,7 +99,7 @@ class ContactsController < ApplicationController
 
     def is_owner
       if current_user.id != @contact.user_id
-         flash[:notice] = "You are ONLY modify your own record!"
+         flash[:notice] = "You can ONLY modify your own record!"
          redirect_to contacts_url
       end
     end
