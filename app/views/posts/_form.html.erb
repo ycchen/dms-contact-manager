@@ -20,7 +20,7 @@
     <%= f.select(:contact_id, Contact.order(:last_name).map{|c| ["#{c.last_name}, #{c.first_name} - #{c.company}", c.id]}, include_blank: 'Select a Contact', style: "width:200px")%>
   </div>
   <div class="field">
-    <%= f.label :title %>
+    <%= f.label :subject %>
     <%= f.text_field :title %>
   </div>
   <div class="field">
