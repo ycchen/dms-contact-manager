@@ -12,7 +12,8 @@
                 <th>Contact By</th>
                 <th>Contact</th>
                 <th>Company</th>
-                <th>Title</th>
+                <th>Subject</th>
+                <th>Type</th>
                 <th>Body</th>
                 <th>Action Items</th>
                 <th>Complete</th>
@@ -27,6 +28,7 @@
                   <td><%= post.contact.last_name %>, <%= post.contact.first_name %></td>
                   <td><%= post.contact.company %></td>
                   <td><%= post.title %></td>
+                  <td><%= post.contact_type.name %></td>
                   <td><%= post.body %></td>
                   <td><%= post.action_item %></td>
                   <td><%= post.complete ? 'Yes' : 'No' %></td>
