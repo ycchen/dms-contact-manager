@@ -221,3 +221,13 @@ textarea#message_area {
 input.radio_buttons, input.check_boxes {
     margin-right: 5px;
   }
+
+.page-header-text{
+  display: inline;
+  vertical-align: middle;
+  margin-right: 15px;
+}
+.page-header{
+  margin: 20px 0 10px;
+  border-bottom: 1px solid #ffffff;
+}
