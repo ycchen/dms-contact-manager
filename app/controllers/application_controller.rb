@@ -8,6 +8,9 @@ class ApplicationController < ActionController::Base
   rescue_from ActionController::RoutingError, :with => :not_found
   
   before_filter :global_user
+
+  helper_method :is_admin?
+  
   def global_user
      Contact.login_user = current_user
   end

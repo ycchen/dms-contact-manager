@@ -1,5 +1,7 @@
 DmsContactsManager::Application.routes.draw do
-
+  
+  
+  
   resources :contact_types
 
   get 'myposts/:contact_id' => 'posts#myposts',:as =>'contactposts'
@@ -12,7 +14,17 @@ DmsContactsManager::Application.routes.draw do
     collection { post :import}
   end
 
-  devise_for :users
+  
+  devise_for :users , :controllers => {:registrations => 'registrations'}
+  devise_scope :user do
+      # get 'users/edit' => 'devise/registrations#edit', :as => 'edit_user_registration' 
+      # put 'users' => 'devise/registration#update', :as => 'user_registration' 
+  end
+  
+  # make sure the resources :users is after devise_for :users
+  resources :users, :only => [:index, :update, :new, :create, :edit, :destroy]
+
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
@@ -67,4 +79,5 @@ DmsContactsManager::Application.routes.draw do
   #     # (app/controllers/admin/products_controller.rb)
   #     resources :products
   #   end
+   match '*path(.:format)', :to => 'application#not_found', via: :all
 end

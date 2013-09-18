@@ -248,3 +248,27 @@ add_column :posts, :complete, :boolean, default: false
 -- Set default time zone to Eastern Time (US & Canada) in config\application.rb
 config.time_zone = 'Eastern Time (US & Canada)'
 config.active_record.default_timezone = :local
+
+-- Added Users controller to allow Edit user information
+$ rails g controller Users index new create edit update
+
+-- Updated config\routes.rb for User controller routes, as well as modified devices routes
+# make sure the resources :users is after devise_for :users 
+  
+  devise_for :users, :controllers => {:registrations => 'registrations'}
+  resources :users, :only => [:index, :update, :new, :create, :edit, :destroy]
+  
+-- Updated controllers\users_controller.rb
+before_action :authenticate_user!, :is_admin?
+
+
+-- Added registration controller 
+$ rails g controller registrations
+
+-- Updated registrations_controller.rb, added before_action 
+before_action :authenticate_user!
+
+-- Updated navigation bar to add user link
+
+-- Modified config\routes.rb to add routes exception handling
+ match '*path(.:format)', :to => 'application#not_found', via: :all
