@@ -88,7 +88,7 @@ class PostsController < ApplicationController
 
     def is_owner
       if current_user.id != @post.user_id
-         flash[:notice] = "You are ONLY modify your own record!"
+         flash[:notice] = "You can ONLY modify your own record!"
          redirect_to posts_url
       end
     end
