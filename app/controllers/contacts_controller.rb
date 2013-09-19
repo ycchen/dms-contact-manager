@@ -89,7 +89,7 @@ class ContactsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_contact
-      @contact = Contact.find(params[:id])
+      @contact = Contact.friendly.find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

@@ -1,4 +1,7 @@
 class Post < ActiveRecord::Base
+  extend FriendlyId
+  friendly_id :title, use: :slugged
+
   belongs_to :user
   belongs_to :contact
   belongs_to :contact_type
@@ -7,6 +10,8 @@ class Post < ActiveRecord::Base
   scope :john, lambda{where(user_id:4).order('created_at DESC')}
   scope :wayne, lambda{where(user_id:5).order('created_at DESC')}
   scope :not_complete, lambda{where(complete:false).order('created_at DESC')}
+
+
 
   def self.search(search)
   	if search

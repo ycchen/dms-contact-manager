@@ -278,3 +278,67 @@ before_action :authenticate_user!
 2. Make sure in the User controller has 2 filters
 before_filter :is_admin, exept: [:edit, :update]
 before_filter :is_admin_or_owner, only: [:edit, :update]
+
+
+https://github.com/norman/friendly_id
+http://richonrails.com/articles/create-friendlier-looking-urls-with-friendlyid#.UjtfcMZeZ8E
+
+-- Added FriendlyId gem to all models
+gem 'friendly_id', '5.0.0.beta4' # Note: You MUST use 5.0.0 or greater for Rails 4.0+
+
+$ rails generate friendly_id
+ create  db/migrate/20130919204819_create_friendly_id_slugs.rb
+ create  config/initializers/friendly_id.rb
+
+$ rake db:migrate
+
+-- Added Slug to Post model
+$ rails g migration AddSlugToPost
+$ rake db:migrate
+
+-- Edit app/models/post.rb
+extend FriendlyId
+friendly_id :title, use: :slugged
+
+-- If you are adding FriendlyId to an existing app and need to generate slugs for existing records, do this from the console, runner, or add a Rake task:
+> Post.finde_each(&:save)
+
+
+--Added FriendlyId to contact model
+
+-- Added migration script to add slug to contact
+$ rails g migration Add_Slug_to_Contact slug:string
+
+$ rake db:migrate
+
+-- Edit app/models/contact.rb
+extend FriendlyId
+friendly_id :full_name, use: :slugged
+
+def full_name
+  "#{first_name}-#{last_name}"  
+end
+
+-- Modified app/controllers/contact_controller.rb
+to replace @contact = Contact.find(params[:id]) to
+@contact = Contact.friendly.find(params[:id]) 
+
+-- Added FriendlyId to user model
+
+$ rails g migration add_Slug_to_user slug:string
+
+-- modified migration script to add index
+add_column :users, :slug, :string
+add_index :users, :slug, unique: true
+
+$ rake db:migrate
+
+-- Edit app/models/user.rb
+extend FriendlyId
+friendly_id :display_name, use: :slugged
+
+-- run this command in console to update existing records
+> User.find_each(&:save)
+
+-- edit app/controllers/users_controller.rb
+replace @user = User.find(params[:id]) to User.friendly.find(params[:id])

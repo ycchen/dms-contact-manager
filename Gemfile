@@ -41,6 +41,7 @@ gem 'rubyzip', '< 1.0.0'
 gem 'faker'						# generate fake data 
 gem 'kaminari'					#pagination
 gem 'bootstrap-datepicker-rails'
+gem 'friendly_id', '5.0.0.beta4'
 group :development, :test do
 	gem 'sqlite3'				# Use sqlite3 as the database for Active Record
 	gem 'capistrano'			# interation testing tools for rack based web application

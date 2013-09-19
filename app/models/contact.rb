@@ -5,6 +5,13 @@ class Contact < ActiveRecord::Base
 
 	scope :john, lambda{where(user_id:4).order('last_name')}
 	scope :wayne, lambda{where(user_id:5).order('last_name')}
+	
+	extend FriendlyId
+	friendly_id :full_name, use: :slugged
+
+	def full_name
+	  "#{first_name}-#{last_name}"  
+	end
 
 	def avatar
 		if self.email
