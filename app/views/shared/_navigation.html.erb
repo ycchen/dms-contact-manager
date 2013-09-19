@@ -16,7 +16,6 @@
 		        		<li class="<%= 'active' if controller_name == 'contacts' %>"><a href="<%= "#{contacts_path}" %>">Contacts</a></li>
 		        		<li class="<%= 'active' if (controller_name == 'posts' &&  params[:user_id].nil?) %>"><a href="<%= "#{posts_path}" %>">Posts</a></li>
 		        		<li class="<%= 'active' if (controller_name == 'posts' &&  params[:user_id]) %>"><%= link_to 'My Posts', posts_path(user_id: current_user) %></li>
-		        		<li class="<%= 'active' if (controller_name == 'users') %>"><%= link_to "Users", users_path %></li>
 		        	<% end %>
 		        </ul>
 		        
@@ -26,8 +25,8 @@
 		                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><img src="<%= current_user.avatar%>" class="avatar"></img> <%= current_user.display_name.titleize %><b class="caret"></b></a>
 		                <ul class="dropdown-menu">
 		                  <li><%= link_to 'My Posts', posts_path(user_id: current_user) %></li>
+		                  <li><%= link_to "My Account", edit_user_path(current_user) %></li>
 		                  <li><%= link_to 'Sign out', destroy_user_session_url(), :method => :delete %></li>  
-		                  <li><%#= link_to "Profile", edit_user_registration_path(current_user) %></li>
 		                </ul>
 		              </li>
 		          <% else %>

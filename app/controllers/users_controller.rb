@@ -1,7 +1,9 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!
-  before_action :is_owner_or_admin, only:[:edit, :update, :destroy]
+  before_action :check_user_update_privilege, only:[:edit, :update]
+  before_action :is_admin?, except: [:edit, :update]
+
   def index
     @users = User.order('email')
   end
@@ -55,16 +57,15 @@ class UsersController < ApplicationController
     params.require(:user).permit(:display_name, :email, :password, :password_confirmation, :role_ids)
   end
 
-  def is_owner_or_admin
+  def check_user_update_privilege
     # if current_user.id != @user.id
     #    flash[:notice] = "You are ONLY modify your own account!"
     #    redirect_to users_url
     # end
     # Rails.logger.debug("is_owner_or_admin: #{!(current_user.id == @user.id || current_user.admin?)}")
     if !(current_user.id == @user.id || current_user.admin?)
-       flash[:notice] = "You can ONLY modify your own account!"
-       redirect_to users_url
+       flash[:danger] = "You can ONLY modify your own account!"
+       redirect_to edit_user_path(current_user)
     end
-
   end
 end

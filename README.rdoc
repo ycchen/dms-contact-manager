@@ -272,3 +272,9 @@ before_action :authenticate_user!
 
 -- Modified config\routes.rb to add routes exception handling
  match '*path(.:format)', :to => 'application#not_found', via: :all
+
+-- Restricted User model for only admin to perform all actions, and restrict user to only able to update their own account
+1. Make sure the  devise routes is before resources :users
+2. Make sure in the User controller has 2 filters
+before_filter :is_admin, exept: [:edit, :update]
+before_filter :is_admin_or_owner, only: [:edit, :update]
