@@ -4,6 +4,9 @@ class Post < ActiveRecord::Base
   belongs_to :contact_type
   has_many :comments
 
+  scope :john, lambda{where(user_id:4).order('created_at DESC')}
+  scope :wayne, lambda{where(user_id:5).order('created_at DESC')}
+  scope :not_complete, lambda{where(complete:false).order('created_at DESC')}
 
   def self.search(search)
   	if search
