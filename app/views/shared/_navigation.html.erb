@@ -16,6 +16,10 @@
 		        		<li class="<%= 'active' if controller_name == 'contacts' %>"><a href="<%= "#{contacts_path}" %>">Contacts</a></li>
 		        		<li class="<%= 'active' if (controller_name == 'posts' &&  params[:user_id].nil?) %>"><a href="<%= "#{posts_path}" %>">Posts</a></li>
 		        		<li class="<%= 'active' if (controller_name == 'posts' &&  params[:user_id]) %>"><%= link_to 'My Posts', posts_path(user_id: current_user) %></li>
+		        		<% if current_user.admin? %>
+		        		<li class="<%= 'active' if (controller_name == 'users') %>"><%= link_to 'Users', users_path %></li>
+		        		<% end %>
+		        		
 		        	<% end %>
 		        </ul>
 		        
