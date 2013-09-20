@@ -351,3 +351,18 @@ friendly_id :display_name, use: :slugged
 
 -- edit app/controllers/users_controller.rb
 replace @user = User.find(params[:id]) to User.friendly.find(params[:id])
+
+-- Added github repository location using git remote
+-- frist create an empty repository at github and get the URL
+$ git remote add origin https://github.com/ycchen/dms-contact-manager.git
+$ git remote -v
+heroku  git@heroku.com:dmsbcm.git (fetch)
+heroku  git@heroku.com:dmsbcm.git (push)
+origin  https://github.com/ycchen/dms-contact-manager.git (fetch)
+origin  https://github.com/ycchen/dms-contact-manager.git (push)
+
+-- push to github
+$ git push -u original master
+
+-- provided username at github and password
+
