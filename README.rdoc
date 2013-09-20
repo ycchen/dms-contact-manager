@@ -147,6 +147,15 @@ $ heroku run rake db:seed
 -- restart heroku application
 $ heroku restart
 
+-- view heroku logs
+$ heroku logs
+$ heroku logs -n 1500 #
+$ heroku logs -t 
+$ heroku logs --tail
+
+-- heroku database backup
+$ heroku pgbackups:capture
+
 -- LIKE is case-sensitive operator in Postgres
 Updated search method and replace or "like" to "LIKE" and convert all column name to lowercase, as well as search value to lowercase
 
