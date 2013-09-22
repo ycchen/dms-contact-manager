@@ -48,7 +48,7 @@
           <%#= index %>
           <%#= "<br />" if (index % 5).zero? %>
         <%# end %>
-        
+        <%= params[:view].nil? %>
         <% if params[:view].nil? %>
           <div id="contact_list">
             <%= render :partial => 'datalist' %>
@@ -70,7 +70,7 @@
               <%= render :partial => 'tabledata'  %>
             </tbody>
           </table>
-        <% elsif params[:view] == "grid" %>
+        <% elsif params[:view] == "grid"%>
           <div id="contact_list">
             <%= render :partial => 'datalist' %>
           </div>

@@ -362,7 +362,19 @@ origin  https://github.com/ycchen/dms-contact-manager.git (fetch)
 origin  https://github.com/ycchen/dms-contact-manager.git (push)
 
 -- push to github
-$ git push -u original master
+$ git push -u origin master
 
 -- provided username at github and password
 
+https://github.com/Nerian/bootstrap-datepicker-rails
+-- Added bootstrap-datepicker-rails gem
+-- modified application.css to add
+ *= require bootstrap-datepicker
+-- modified application.js to add
+//= require bootstrap-datepicker
+
+-- Added $('#dp3').datepicker() to application.js
+
+## Turbolinks causes other JS works normally
+-- Added gem 'jquery-turbolinks' in the Gemfile
+-- Added //= require jquery.turbolinks in application.js
